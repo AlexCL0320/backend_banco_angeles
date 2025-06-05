@@ -1,7 +1,7 @@
 """
 URL configuration for bancoSangre project.
 
-The `urlpatterns` list routes URLs to views. For more information please see:
+The urlpatterns list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/
 """
 
@@ -29,6 +29,9 @@ urlpatterns = [
 
     path('api/', include(router.urls)),
 
+    # Incluir usuario.api.urls solo UNA vez
+    path('api/', include('usuario.api.urls')),  
+
     # JWT endpoints
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
@@ -41,8 +44,5 @@ urlpatterns = [
     path('api/direccion/', include('direccion.api.urls')),
     path('api/donador/', include('donador.api.urls')),
 
-    # Eliminada la inclusión duplicada de 'usuario.api.urls' para evitar conflictos
-    # path('api/', include('usuario.api.urls')),  # Comentar o eliminar si hay conflicto con router
-
-    path('api/cita/', include('cita.api.urls')),  # Solo una vez
+    path('api/cita/', include('cita.api.urls')),
 ]
